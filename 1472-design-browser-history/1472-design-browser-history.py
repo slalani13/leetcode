@@ -9,10 +9,10 @@ class BrowserHistory:
         
 
     def visit(self, url: str) -> None:
-        if self.len >= self.curr + 2:
+        if len(self.history) >= self.curr + 2:
             self.history[self.curr + 1] = url
-        elif len(self.history) > self.len:
-            self.history[self.curr + 1] = url
+        # if len(self.history) > self.len:
+        #     self.history[self.curr + 1] = url
         else:
             self.history.append(url)
         
