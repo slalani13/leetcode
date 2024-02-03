@@ -4,18 +4,21 @@ class BrowserHistory:
         #pointer to homepage, same as index of homepage
         self.curr = 0
         self.history = [homepage]
+        # adding a length so that we can't access the other pages in visit
+        self.len = 1
         
 
     def visit(self, url: str) -> None:
-        if len(self.history) >= self.curr + 2:
+        if self.len >= self.curr + 2:
             self.history[self.curr + 1] = url
-            self.curr += 1
         else:
             self.history.append(url)
-            self.curr += 1
+        
+        self.curr += 1
+        self.len = self.curr + 1
 
-        for i in range(len(self.history)-1, self.curr, -1):
-            self.history.pop(i)
+        # for i in range(len(self.history)-1, self.curr, -1):
+        #     self.history.pop(i)
 
 
     def back(self, steps: int) -> str:
@@ -25,7 +28,7 @@ class BrowserHistory:
         return self.history[self.curr]
 
     def forward(self, steps: int) -> str:
-        self.curr = min(self.curr + steps, len(self.history)-1)
+        self.curr = min(self.curr + steps, self.len-1)
         return self.history[self.curr]
 
         
