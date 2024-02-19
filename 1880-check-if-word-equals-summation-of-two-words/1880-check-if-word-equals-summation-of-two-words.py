@@ -51,4 +51,3 @@ class Solution:
         else:
             return False
 
-        # check if the integer values are the same for the sum and target
