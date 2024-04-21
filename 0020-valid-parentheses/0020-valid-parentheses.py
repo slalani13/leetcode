@@ -1,31 +1,29 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        #(){}[] valid
-        #{{{}}}((())) valid
-        #((()))) invalid
-        #[)] invalid
-
-        # Use stack to pop off valid pairs. Return true if stack is empty
-
-        pairs = {"}": "{", ")":"(","]": "["}
-
+        mp = {"}":"{","]":"[",")":"("}
         stack = []
-
+        if len(s) == 0:
+            return True
+        if len(s) == 1:
+            return False
+        
         for c in s:
-            # This can be an open or a close
-            # if its a close
-            if c in pairs:
-                # if stack is not empty and top of stack is a pair
-                if stack and stack[-1] == pairs[c]:
-                    stack.pop()
-                # either stack is empty or last element does not match
-                else:
-                    return False
-            else:
+            # opening bracket
+            if c not in mp:
                 stack.append(c)
+                continue
+            # closing bracket at beginning
+            elif not stack and c in mp:
+                return False
+            # closing bracket == opening bracket
+            elif c in mp and stack[-1] == mp[c]:
+                stack.pop(-1)
+                continue
+            # none of the above
+            else:
+                return False
         
         if not stack:
             return True
         else:
             return False
-        
