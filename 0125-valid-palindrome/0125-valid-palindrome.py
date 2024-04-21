@@ -1,19 +1,12 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        res = ""
-        s = s.lower()
-        for c in s:
-            if c.isalnum():
-                res += c
-            else:
-                continue
-        print(res)
-        i=0
-        j=len(res)-1
-
-        while i < j:
-            if res[i] != res[j]:
-                return False
-            i+=1
-            j-=1
-        return True
+        sList = [val.lower() for val in s if val.isalnum()]
+        string1 = "".join(sList)
+        print(string1)
+        reverseString = ""
+        for i in range(len(string1)-1, -1, -1):
+            reverseString += string1[i]
+        print(reverseString)
+        if string1 == reverseString:
+            return True
+        return False
