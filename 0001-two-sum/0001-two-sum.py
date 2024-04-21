@@ -1,9 +1,9 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        mydict = dict()
+        map1 = {}
         for i in range(len(nums)):
-            val=target - nums[i]
-            if val in mydict:
-                return i,mydict[val]
+            key = target - nums[i]
+            if key in map1:
+                return [i,map1[key]]
             else:
-                mydict[nums[i]]=i
+                map1[nums[i]] = i
