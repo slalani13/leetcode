@@ -1,19 +1,16 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        #edge cases
+        # edge cases
         if len(s) != len(t):
             return False
-        if len(s) == 0:
-            return True
-        strList = [0]*26
-        strList2 = [0]*26
-        print(strList)
-        for char in s:
-            index = ord(char) - ord('a')
-            strList[index] += 1
-        for char in t:
-            index = ord(char) - ord('a')
-            strList2[index] += 1
-        if strList == strList2:
+        ls = [0]*26
+        lt = [0]*26
+        for c in s:
+            index = ord(c) - ord('a')
+            ls[index] +=1
+        for c in t:
+            index = ord(c) - ord('a')
+            lt[index] +=1
+        if ls == lt:
             return True
         return False
