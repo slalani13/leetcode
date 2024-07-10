@@ -8,8 +8,7 @@ class Solution:
     def findMin(self, root):
         if root and root.left:
             return self.findMin(root.left)
-        else:
-            return root
+        return root
 
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
         if not root:
