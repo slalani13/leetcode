@@ -8,8 +8,6 @@ class Solution:
     def findMin(self, root):
         if root and root.left:
             return self.findMin(root.left)
-        elif root and root.right:
-            return self.findMin(root.right)
         else:
             return root
 
