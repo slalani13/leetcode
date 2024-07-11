@@ -3,7 +3,7 @@ class Solution:
         stack = []
         for c in s:
             if c != ')':
-                stack.append(c) # 
+                stack.append(c)
             else:
                 reversed_word = ""
                 while stack[-1] != '(':
