@@ -5,7 +5,8 @@ class Solution:
         squareMap = defaultdict(set)
         for row in range(len(board)):
             for col in range(len(board[row])):
-                print(rowMap)
+                if board[row][col] == '.':
+                    continue
                 r = row//3
                 c = col//3
                 if board[row][col] in rowMap[row]:
@@ -14,8 +15,8 @@ class Solution:
                     return False
                 if board[row][col] in squareMap[(r,c)]:
                     return False
-                if board[row][col] != '.':
-                    rowMap[row].add(board[row][col])
-                    colMap[col].add(board[row][col])
-                    squareMap[(r,c)].add(board[row][col])
+                # if board[row][col] != '.':
+                rowMap[row].add(board[row][col])
+                colMap[col].add(board[row][col])
+                squareMap[(r,c)].add(board[row][col])
         return True
