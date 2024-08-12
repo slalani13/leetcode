@@ -1,23 +1,17 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # edge cases, no list
-        if not nums:
-            return []
-        output = []
-        count = defaultdict(int)
+        hashMap = {}
+        freq = [[] for i in range(len(nums)+1)]
+        res = []
         for n in nums:
-            count[n] += 1
-        res_arr = [[] for _ in range(len(nums))]
-        print(res_arr)
-        for key, value in count.items():
-            res_arr[value - 1].append(key)
-        for i in range(len(nums)-1,-1,-1):
-            if len(res_arr[i])>0 and k>0:
-                for value in res_arr[i]:
-                    if k>0:
-                        output.append(value)
-                        k-=1
-        return output
-
-
-        
+            if n in hashMap:
+                hashMap[n] += 1
+            else:
+                hashMap[n] = 1
+        for val, count in hashMap.items():
+            freq[count].append(val)
+        for i in range(len(freq)-1, 0, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
