@@ -15,7 +15,6 @@ class Solution:
                     return False
                 if board[row][col] in squareMap[(r,c)]:
                     return False
-                # if board[row][col] != '.':
                 rowMap[row].add(board[row][col])
                 colMap[col].add(board[row][col])
                 squareMap[(r,c)].add(board[row][col])
