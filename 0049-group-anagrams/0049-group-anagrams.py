@@ -1,17 +1,18 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        if len(strs) == 1:
-            return [strs]
-        # map key: tuple, val: list of strings
-        m = dict()
-        for s in strs:
-            l = [0]*26
-            for c in s:
+        hashMap = {}
+        res = []
+        print(hashMap)
+        for word in strs:
+            wordCount = [0]*26
+            for c in word:
                 index = ord(c) - ord('a')
-                l[index] += 1
-            key = tuple(l)
-            if key in m:
-                m[key].append(s)
+                wordCount[index] += 1
+            key = tuple(wordCount)
+            if key in hashMap:
+                hashMap[key].append(word)
             else:
-                m[key] = [s]
-        return m.values()
+                hashMap[key] = [word]
+        for val in hashMap.values():
+            res.append(val)
+        return res
