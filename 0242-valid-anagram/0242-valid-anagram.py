@@ -1,16 +1,17 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        # edge cases
         if len(s) != len(t):
             return False
-        ls = [0]*26
-        lt = [0]*26
-        for c in s:
-            index = ord(c) - ord('a')
-            ls[index] +=1
-        for c in t:
-            index = ord(c) - ord('a')
-            lt[index] +=1
-        if ls == lt:
+        # represent 26 letters in the alphabet
+        lettersS = [0]*26
+        lettersT = [0]*26
+        for l in s:
+            index = ord(l) - ord('a')
+            lettersS[index] += 1
+        for l in t:
+            index = ord(l) - ord('a')
+            lettersT[index] += 1
+        if lettersS == lettersT:
             return True
         return False
+        
