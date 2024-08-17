@@ -14,19 +14,34 @@ class Solution:
         # return root
 
         # BFS
+        # if not root:
+        #     return None
+        # q = deque()
+        # q.append(root)
+
+        # while q:
+        #     for i in range(len(q)):
+        #         node = q.popleft()
+        #         node.left, node.right =  node.right, node.left
+        #         if node.right:
+        #             q.append(node.right)
+        #         if node.left:
+        #             q.append(node.left)
+        # return root
+
+        #iterative DFS
         if not root:
             return None
-        q = deque()
-        q.append(root)
+        stack = [root]
 
-        while q:
-            for i in range(len(q)):
-                node = q.popleft()
-                node.left, node.right =  node.right, node.left
-                if node.right:
-                    q.append(node.right)
+        while stack:
+            for i in range(len(stack)):
+                node = stack.pop()
+                node.left, node.right = node.right, node.left
                 if node.left:
-                    q.append(node.left)
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
         return root
 
         
