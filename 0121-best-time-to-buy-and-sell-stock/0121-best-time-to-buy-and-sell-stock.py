@@ -5,7 +5,6 @@ class Solution:
         for i in range(len(prices)):
             if prices[i] < minPrice:
                 minPrice = prices[i]
-            currPrice = prices[i]
-            profit = currPrice - minPrice
-            maxProfit = max(maxProfit, profit)
+            profit = prices[i] - minPrice
+            maxProfit = max(profit, maxProfit)
         return maxProfit
