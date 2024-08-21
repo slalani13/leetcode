@@ -2,16 +2,15 @@ class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
         if len(s) != len(t):
             return False
-        # represent 26 letters in the alphabet
-        lettersS = [0]*26
-        lettersT = [0]*26
-        for l in s:
-            index = ord(l) - ord('a')
-            lettersS[index] += 1
-        for l in t:
-            index = ord(l) - ord('a')
-            lettersT[index] += 1
-        if lettersS == lettersT:
+        countS = [0] * 26
+        for c in s:
+            index = ord(c) - ord('a')
+            countS[index] += 1
+        countT = [0]*26
+        for c in t:
+            index = ord(c) - ord('a')
+            countT[index] += 1
+        if countS == countT:
             return True
         return False
         
