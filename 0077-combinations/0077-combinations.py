@@ -8,9 +8,11 @@ class Solution:
                 return
             if i > n:
                 return
-            comb.append(i)
-            dfs(i+1)
-            comb.pop()
-            dfs(i+1)
+
+            for j in range(i, n+1):
+                comb.append(j)
+                dfs(j+1)
+                comb.pop()
+
         dfs(1)
         return combinations
