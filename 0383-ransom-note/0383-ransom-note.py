@@ -1,14 +1,12 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        countM = [0]*26
-        countR = [0]*26
+        mag = [0]*26
         for c in magazine:
             index = ord(c) - ord('a')
-            countM[index] += 1
+            mag[index] +=1
         for c in ransomNote:
-            index = ord(c) - ord('a')
-            countR[index] += 1
-        for i in range(26):
-            if countR[i] > countM[i]:
+            if mag[ord(c) - ord('a')] == 0:
                 return False
+            else:
+                mag[ord(c) - ord('a')] -= 1
         return True
