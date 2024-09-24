@@ -1,14 +1,18 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        subsets, currSet = [], []
-
-        def dfs(i):
+        res, sol = [], []
+        
+        def backtrack(i):
+            #base case
             if i >= len(nums):
-                subsets.append(currSet.copy())
-                return 
-            currSet.append(nums[i])
-            dfs(i+1)
-            currSet.pop()
-            dfs(i+1)
-        dfs(0)
-        return subsets
+                res.append(sol[:])
+                return
+            # make a decision
+            backtrack(i+1)
+
+            sol.append(nums[i])
+            backtrack(i+1)
+            sol.pop()
+        
+        backtrack(0)
+        return res
