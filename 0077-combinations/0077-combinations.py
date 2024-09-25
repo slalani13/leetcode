@@ -1,18 +1,18 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        combinations, comb = [], []
+        res, sol = [], []
 
-        def dfs(i):
-            if len(comb) == k:
-                combinations.append(comb.copy())
+        def backtrack(i):
+            if len(sol) == k:
+                res.append(sol[:])
                 return
             if i > n:
                 return
-
-            for j in range(i, n+1):
-                comb.append(j)
-                dfs(j+1)
-                comb.pop()
-
-        dfs(1)
-        return combinations
+            for i in range(i,n+1):
+                if i not in sol:
+                    sol.append(i)
+                    backtrack(i+1)
+                    sol.pop()
+        
+        backtrack(1)
+        return res
