@@ -1,17 +1,16 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        res = []
-        cur = []
-        def dfs(i, cur, total):
-            if total == target:
-                res.append(cur[:])
+        candidates.sort()
+        res, comb = [], []
+        def backtrack(x, idx):
+            if x == 0:
+                res.append(comb[:])
                 return
-            if i >= len(candidates) or total > target:
+            if x < 0:
                 return
-            # choose to add candidates[i]
-            cur.append(candidates[i])
-            dfs(i, cur, total+candidates[i])
-            cur.pop()
-            dfs(i+1, cur, total)
-        dfs(0, cur, 0)
+            for i in range(idx, len(candidates)):
+                comb.append(candidates[i])
+                backtrack(x-candidates[i], i)
+                comb.pop()
+        backtrack(target, 0)
         return res
