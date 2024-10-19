@@ -3,19 +3,10 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        # ding, hello
-        # swap front and back, move pointer until they are the same index or 
-        #front pointer > rear pointer
 
-        rear = len(s)-1
-        front = 0
-        while front != rear and front < rear:
-            # need tmp pointer to save front value
-            # print(front)
-            # print(s[front])
-            tmp = s[front]
-            # change front value
-            s[front] = s[rear]
-            s[rear] = tmp
-            front += 1
-            rear -= 1
+        L, R = 0, len(s)-1
+        while L < R:
+            s[L], s[R] = s[R], s[L]
+            L += 1
+            R -=1
+        return s
