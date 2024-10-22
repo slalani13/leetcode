@@ -1,21 +1,20 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        # get left height and right height arrays
-        L, R = [], deque()
-        maxL = 0
-        maxR = 0
-        for i in range(len(height)):
-            L.append(maxL)
-            maxL = max(maxL, height[i])
-        print(L)
-        for i in range(len(height)-1, -1, -1):
-            R.appendleft(maxR)
-            maxR = max(maxR, height[i])
-        print(R)
-        # get sum
+        n = len(height)
+        left = [0] * n
+        right = [0] * n
+        maxLeft = 0
+        maxRight = 0
         total = 0
-        for i in range(len(height)):
-            water = min(L[i], R[i]) - height[i]
-            if water > 0:
-                total += water
+        
+        for i in range(n):
+            j = -i - 1
+            left[i] = maxLeft
+            right[j] = maxRight
+            maxLeft = max(maxLeft, height[i])
+            maxRight = max(maxRight, height[j])
+        
+        for i in range(n):
+            potential = min(left[i], right[i])
+            total += max(0,potential-height[i])
         return total
