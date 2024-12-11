@@ -11,7 +11,8 @@ class Solution:
         def inorderTraversal(node):
             if not node:
                 return
-            
+            if len(order) == k:
+                return
             inorderTraversal(node.left)
             order.append(node.val)
             inorderTraversal(node.right)
