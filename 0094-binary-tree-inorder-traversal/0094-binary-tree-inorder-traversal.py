@@ -13,5 +13,7 @@ class Solution:
             inorder(root.left)
             res.append(root.val)
             inorder(root.right)
+            return
+        
         inorder(root)
         return res
