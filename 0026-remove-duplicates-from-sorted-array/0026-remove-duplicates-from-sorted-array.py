@@ -12,17 +12,19 @@ class Solution:
         # return L
 
         # write this recursively
-        # [ 1, 2, 3], [1, 1, 1]
+        # [ 1, 2, 3], [1, 1, 2]
+
         def rec(index, unique_index):
             if index == len(nums):
                 return unique_index
             
             # case when index != index-1
             if index == 0 or nums[index] != nums[index-1]:
-                nums[unique_index] == nums[index]
+                nums[unique_index] = nums[index]
                 return rec(index+1, unique_index+1)
 
             # case when index == index-1
-            return (index+1, unique_index)
+            return rec(index+1, unique_index)
         
+        return rec(0, 0)
 
