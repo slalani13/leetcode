@@ -1,18 +1,9 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        res = []
-        groups = {} # tuple to list of words
-
-        for i in range(len(strs)):
-            s = [0] * 26
-            for l in strs[i]:
-                idx = ord(l) - ord('a')
-                s[idx] += 1
-            if tuple(s) in groups:
-                groups[tuple(s)].append(strs[i])
-            else:
-                groups[tuple(s)] = [strs[i]]
-        for val in groups.values():
-            res.append(val)
-        return res
-            
+        output = defaultdict(list)
+        for word in strs:
+            count = [0] * 26
+            for c in word:
+                count[ord(c) - ord('a')] += 1
+            output[tuple(count)].append(word)
+        return list(output.values())
