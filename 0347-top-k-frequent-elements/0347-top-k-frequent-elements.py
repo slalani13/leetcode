@@ -6,9 +6,9 @@ class Solution:
             buckets[freq].append(num)
         # print(buckets)
         res = []
-        for i in range(len(buckets)-1, -1, -1):
+        for i in range(len(buckets)-1, 0, -1):
             for num in buckets[i]:
                 res.append(num)
-                print(res)
+                # print(res)
                 if len(res) == k:
                     return res
