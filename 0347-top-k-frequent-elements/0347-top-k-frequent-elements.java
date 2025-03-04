@@ -1,23 +1,32 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
+        int n = nums.length;
         // create a hashmap with freq of each element <Int, Int> O(n)
-        Map<Integer, Integer> mp = new HashMap<>();
+        Map<Integer, Integer> mp = new HashMap<>(); // <num, freq>
+        List<Integer>[] buckets = new List[nums.length+1]; // [[num], [num]] index is freq
         for (int num: nums) {
             mp.put(num, mp.getOrDefault(num, 0)+1);
         }
-        // create a pq (minheap) in order of lowest to highest freq of size k O(nlogn)
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b) -> a[1] - b[1]);
-        // add and pop n pairs (freq, val) to pq O(n*logn)
         for (Map.Entry<Integer, Integer> entry: mp.entrySet()) {
-            pq.offer(new int[]{entry.getKey(), entry.getValue()});
-            if (pq.size() > k) {
-                pq.poll();
+            int num = entry.getKey();
+            int freq = entry.getValue();
+            if (buckets[freq] == null) {
+                buckets[freq] = new ArrayList<>();
             }
+            buckets[freq].add(num);
         }
-        // return int[] of remaining elements
         int[] res = new int[k];
-        for (int i=0; i<k;i++) {
-            res[i] = pq.poll()[0];
+        int index = 0;
+        for (int i=buckets.length-1; i >= 0 && index < k; i--) {
+            if (buckets[i] != null) {
+                for (int num: buckets[i]) {
+                    res[index] = num;
+                    index++;
+                    if (index == k) {
+                        return res;
+                    }
+                }
+            }
         }
         return res;
     }
