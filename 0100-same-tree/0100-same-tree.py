@@ -12,7 +12,7 @@ class Solution:
                 return True
             if (p and not q) or (q and not p):
                 return False
-            if p and q and p.val != q.val:
+            if p.val != q.val:
                 return False
             return dfs(p.left, q.left) and dfs(p.right, q.right)
 
