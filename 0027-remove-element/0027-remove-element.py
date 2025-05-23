@@ -14,7 +14,7 @@ class Solution:
         k = 0 # [2233] r = 1, k=2, l = 1
         for l in range(n):
             # updates r to be rightmost non-val element
-            while r>0 and nums[r] == val:
+            while r>=0 and nums[r] == val:
                 r-=1
             if nums[l] != val:
                 k += 1
