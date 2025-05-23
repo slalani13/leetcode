@@ -3,10 +3,10 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-
-        L, R = 0, len(s)-1
-        while L < R:
-            s[L], s[R] = s[R], s[L]
-            L += 1
-            R -=1
-        return s
+        l, r = 0, len(s)-1
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l+= 1
+            r-= 1
+        return
+        
