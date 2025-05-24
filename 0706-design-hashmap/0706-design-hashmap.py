@@ -18,11 +18,12 @@ class MyHashMap:
             idx = (idx+1) % 4096
         if self.map[idx][0] == key:
             self.map[idx][1] = value
-        self.map[idx] = [key, value] # add values
+        else:
+            self.map[idx] = [key, value] # add values
 
     def get(self, key: int) -> int:
         idx = self.get_hash_value(key)
-        orig_idx = copy.deepcopy(idx)
+        orig_idx = idx
         while self.map[idx][0] != key:
             idx = (idx+1) % 4096
             if idx == orig_idx:
@@ -31,12 +32,12 @@ class MyHashMap:
 
     def remove(self, key: int) -> None:
         idx = self.get_hash_value(key)
-        orig_idx = copy.deepcopy(idx)
+        orig_idx = idx
         while self.map[idx][0] != key: # assuming there is a node to delete
             idx = (idx+1) % 4096
             if idx == orig_idx:
                 return
-        self.map[idx] = (-1, -1)
+        self.map[idx] = [-1, -1]
 
 # Your MyHashMap object will be instantiated and called as such:
 # obj = MyHashMap()
