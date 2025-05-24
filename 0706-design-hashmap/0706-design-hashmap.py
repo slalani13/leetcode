@@ -4,7 +4,7 @@ class MyHashMap:
     # option 2 - use list with 1000 indexes as there will be 1000 calls. Use node 
 
     def __init__(self):
-        self.map = [[-1, -1] for _ in range(1000)]
+        self.map = [[-1, -1] for _ in range(4096)]
     
     def get_hash_value(self, key: int) -> int:
         return key % 4096
