@@ -3,4 +3,13 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        return s.reverse()
+        # utilize 2 pointers
+        # 2 pointers at both ends and swap
+
+        l, r = 0, len(s)-1
+        while l < r:
+            s[l], s[r] = s[r], s[l]
+            l += 1
+            r -= 1
+        
+        
