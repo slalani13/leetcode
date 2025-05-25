@@ -3,14 +3,13 @@ class Solution:
         # abc, pqr, l, r = 0, 0
         # iterate through smaller string, then iterate through remainder of other string
         res = []
-        min_length = min(len(word1), len(word2))
-        for i in range(min_length):
+        i = 0
+        j = 0
+        while i < len(word1) and j < len(word2):
             res.append(word1[i])
-            res.append(word2[i])
-        if len(word1) > len(word2):
-            for i in range(min_length, len(word1)):
-                res.append(word1[i])
-        elif len(word2) > len(word1):
-            for i in range(min_length, len(word2)):
-                res.append(word2[i])
+            res.append(word2[j])
+            i += 1
+            j += 1
+        res.append(word1[i:])
+        res.append(word2[i:])
         return "".join(res)
