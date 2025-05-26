@@ -19,9 +19,12 @@ class Solution:
                 nums1[ptr] = nums2[ptr2]
                 ptr2 -= 1
             ptr -= 1
-        while ptr2 >= 0:
-            nums1[ptr] = nums2[ptr2]
-            ptr -= 1
-            ptr2 -= 1
+        # while ptr2 >= 0:
+        #     nums1[ptr] = nums2[ptr2]
+        #     ptr -= 1
+        #     ptr2 -= 1
+        
+        if ptr2 >=0:
+            nums1[:ptr2+1] = nums2[:ptr2+1]
 
 
