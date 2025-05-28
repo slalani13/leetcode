@@ -1,13 +1,15 @@
 class Solution:
     def calPoints(self, operations: List[str]) -> int:
-        stk = []
+        record = []
         for op in operations:
             if op == "C":
-                stk.pop()
+                record.pop()
             elif op == "D":
-                stk.append(2*stk[-1])
+                double = int(record[-1]) * 2
+                record.append(double)
             elif op == "+":
-                stk.append(stk[-1] + stk[-2])
+                val = int(record[-1]) + int(record[-2])
+                record.append(val)
             else:
-                stk.append(int(op))
-        return sum(stk)
+                record.append(int(op))
+        return sum(record)
