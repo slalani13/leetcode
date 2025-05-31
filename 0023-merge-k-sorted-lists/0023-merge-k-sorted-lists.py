@@ -5,34 +5,26 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not lists or len(lists) == 0:
-            return None
+        # 3 linkedlists merge and return in sorted order, each linked-list is already sorted
+        # choose minimum between k lists, use heap and add k elements to min heap klogn
+        # create dummy node and return dummy.next as head
+        # pop node from heap, each node will have a next val, add next node to heap logn
+        # connect node to curr node and update curr
+        # Time complexity - n log n because we are gonna add all n nodes to heap eventually and stop when heap is empty
+        minHeap = []
+        heapq.heapify(minHeap)
+        for idx, node in enumerate(lists):
+            if node:
+                heapq.heappush(minHeap, (node.val, idx, node))
+        # [4, 2, ]
+        # dummy -> 1 -> 3
+        dummy = ListNode(-1)
+        curr = dummy
+        while minHeap:
+            val, idx, node = heapq.heappop(minHeap)
+            curr.next = node
+            curr = curr.next
+            if node.next:
+                heapq.heappush(minHeap, (node.next.val, idx, node.next))
+        return dummy.next  
 
-        while len(lists) > 1:
-            newLists = []
-            for i in range(0,len(lists), 2):
-                l1 = lists[i]
-                l2 = lists[i+1] if i+1 < len(lists) else None
-                newLists.append(self.mergeLists(l1, l2))
-                # print("l1", l1)
-                # print("l2", l2)
-                # print("newlist", newLists)
-            lists = newLists
-        return lists[0]
-    
-    def mergeLists(self, l1, l2):
-        dummy = ListNode()
-        tail = dummy
-        while l1 and l2:
-            if l1.val <= l2.val:
-                tail.next = l1
-                l1 = l1.next
-            else:
-                tail.next = l2
-                l2 = l2.next
-            tail = tail.next
-        if l1:
-            tail.next = l1
-        if l2:
-            tail.next = l2
-        return dummy.next
