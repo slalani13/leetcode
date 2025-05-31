@@ -1,40 +1,48 @@
-class BrowserHistory:
+# use a doubly linkedlist to move forward and backward
+class DoublyNode:
 
-    def __init__(self, homepage: str):
-        #pointer to homepage, same as index of homepage
-        self.curr = 0
-        self.history = [homepage]
-        # adding a length so that we can't access the other pages in visit
-        self.len = 1
+    def __init__(self, url, prev=None, next=None):
+        self.url = url
+        self.prev = prev
+        self.next = next
+
+class BrowserHistory: # [head -> leetcode -> google -> facebook -> youtube -> tail]
+
+    def __init__(self, homepage: str): # O(1) # [head -> <- leetcode -> <- tail]
+        self.head = DoublyNode(-1)
+        self.tail = DoublyNode(-1)
+        new_node = DoublyNode(homepage, self.head, self.tail)
+        self.head.next = new_node
+        self.tail.prev = new_node
+        self.curr = new_node
         
-
     def visit(self, url: str) -> None:
-        if len(self.history) >= self.curr + 2:
-            self.history[self.curr + 1] = url
-        # if len(self.history) > self.len:
-        #     self.history[self.curr + 1] = url
-        else:
-            self.history.append(url)
-        
-        self.curr += 1
-        self.len = self.curr + 1
+        new_node = DoublyNode(url, self.curr, self.tail) # google, leetcode, tail
+        self.curr.next = new_node # leetcode -> <-google -> <- tail
+        self.tail.prev = new_node
+        self.curr = new_node # google
 
-        # for i in range(len(self.history)-1, self.curr, -1):
-        #     self.history.pop(i)
+    def back(self, steps: int) -> str: 
+        # [head -> leetcode -> google -> facebook -> youtube -> tail]
+        curr = self.curr
+        for i in range(steps):
+            if curr.prev == self.head:
+                self.curr = curr
+                return curr.url
+            curr = curr.prev
+        self.curr = curr
+        return curr.url
 
 
-    def back(self, steps: int) -> str:
-        self.curr = max(self.curr - steps, 0)
-        # print(self.curr)
-        # print(self.history)
-        return self.history[self.curr]
-
-    def forward(self, steps: int) -> str:
-        self.curr = min(self.curr + steps, self.len-1)
-        return self.history[self.curr]
-
-        
-
+    def forward(self, steps: int) -> str: #O(x)
+        curr = self.curr
+        for i in range(steps):
+            if curr.next == self.tail:
+                self.curr = curr
+                return curr.url
+            curr = curr.next
+        self.curr = curr
+        return curr.url
 
 # Your BrowserHistory object will be instantiated and called as such:
 # obj = BrowserHistory(homepage)
