@@ -24,4 +24,5 @@ class Solution:
             for j in range(COLS):
                 if grid[i][j] == 1:
                     dfs(i, j)
+                    return perimeter[0]
         return perimeter[0]
