@@ -9,19 +9,26 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        if not node:
-            return None
-        q = deque([node])
-        clones = {}
-        clones[node.val] = Node(node.val, [])
+        # return a deep copy cloned node of the graph
+        # use dfs to traverse the graph and return the cloned node
+        # in each call, create a call and store it in a dict
+        # dict = node : cloned_node
+        # append its neighbors
+        # O(n)
 
-        while q:
-            cur = q.popleft()
-            cur_clone = clones[cur.val]
+        
+        hashmap = defaultdict(Node)
+        def dfs(node):
+            if not node:
+                return None
+            if node in hashmap:
+                return hashmap[node]
+            cloned_node = Node(node.val)
+            hashmap[node] = cloned_node
+            for nei in node.neighbors:
+                cloned_neighbor = dfs(nei)
+                cloned_node.neighbors.append(cloned_neighbor)
+            return cloned_node
+        return dfs(node)
 
-            for nei in cur.neighbors:
-                if nei.val not in clones:
-                    clones[nei.val] = Node(nei.val, [])
-                    q.append(nei)
-                cur_clone.neighbors.append(clones[nei.val])
-        return clones[node.val]
+            
