@@ -5,10 +5,11 @@ class Solution:
         arr = []
         for x1, y1 in points:
             dist = math.sqrt(x1**2 + y1**2)
-            arr.append((-dist, x1, y1))
-        heapq.heapify(arr) # O(n)
-        print(arr)
-        while len(arr) > k:
-            heapq.heappop(arr)
+            heapq.heappush(arr, (-dist, x1, y1))
+            while len(arr) > k:
+                heapq.heappop(arr)
+        # print(arr)
+        # while len(arr) > k:
+        #     heapq.heappop(arr)
         res = [[x1, x2] for dist, x1, x2 in arr]
         return res
