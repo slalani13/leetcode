@@ -1,26 +1,23 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s2) < len(s1):
-            return False
+        # sliding window of size s1
+        # iterate through and update a counts array and check if it matches with the s1Counts
+        # continue until len(s2), return false
+        s1Counts, counts = [0] * 26, [0] * 26
+
+        for i in range(len(s1)):
+            s1Counts[ord(s1[i])-ord('a')] += 1
+            counts[ord(s2[i])-ord('a')] += 1
         
-        s1_state = [0] * 26
-        s2_state = [0] * 26
-        for s in s1:
-            s1_state[ord(s) - ord('a')] += 1
+        if s1Counts == counts:
+            return True
         
-        n = len(s1)
-        L, R = 0, 0
-        
-        while R <= len(s2):
-            while R-L < n:
-                s2_state[ord(s2[R]) - ord('a')] += 1
-                R += 1
-            if s1_state == s2_state:
+        l=0
+        for i in range(len(s1), len(s2)):
+            counts[ord(s2[i])-ord('a')] += 1
+            counts[ord(s2[l])-ord('a')] -= 1
+            if s1Counts == counts:
                 return True
-            if R < len(s2):
-                s2_state[ord(s2[R]) - ord('a')] += 1
-            s2_state[ord(s2[L]) - ord('a')] -= 1
-            L+= 1
-            R+= 1
+            l += 1
         return False
-        
+
