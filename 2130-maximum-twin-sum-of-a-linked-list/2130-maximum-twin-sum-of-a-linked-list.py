@@ -7,13 +7,14 @@ class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
         
         def reverse(head):
-            if not head or not head.next:
-                return head
-            # let's say reverse returns the new_head of the linked_list
-            new_head = reverse(head.next)
-            head.next.next = head
-            head.next = None
-            return new_head
+            curr = head
+            prev = None
+            while curr:
+                next = curr.next # save next
+                curr.next = prev # reverse arrow
+                prev = curr # update prev 
+                curr = next # update curr
+            return prev
 
         # get to middle of linked list and reverse second half
         fast, slow = head, head
