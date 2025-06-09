@@ -1,22 +1,27 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])
-        visited = set()
-
-        def dfs(i, j, word):
-            if len(word) == 0:
-                return True
-            if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or board[i][j] != word[0] or (i,j) in visited:
+        
+        def dfs(r, c, char_idx, visited):
+            # base case if out of bounds or does not equal letter
+            if not (0 <= r < ROWS and 0 <= c < COLS) or board[r][c] != word[char_idx] or (r, c) in visited:
                 return False
-            visited.add((i,j))
-            if (dfs(i+1,j, word[1:]) or dfs(i-1, j, word[1:]) or dfs(i, j+1, word[1:]) or dfs(i, j-1, word[1:])):
+            if char_idx == len(word)-1:
                 return True
-            visited.remove((i,j))
+            # visited((0, 0), (0, 1), )
+            visited.add((r, c))
+            up = dfs(r-1, c, char_idx+1, visited) # false
+            down = dfs(r+1, c, char_idx+1, visited) # false
+            right = dfs(r, c+1, char_idx+1, visited) # calls dfs(0, 2, 2, visited)
+            left = dfs(r, c-1, char_idx+1, visited)
+            if up or down or left or right:
+                return True
+            visited.remove((r, c))
             return False
 
-        for i in range(ROWS):
-            for j in range(COLS):
-                if dfs(i, j, word):
+        for r in range(ROWS):
+            for c in range(COLS):
+                if dfs(r, c, 0, set()):
                     return True
         return False
-        
+
