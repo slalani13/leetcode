@@ -3,12 +3,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        counts = [0]*3
-        for i in range(len(nums)):
-            counts[nums[i]] += 1
-        k=0
-        for i in range(len(counts)):
-            for j in range(counts[i]):
-                nums[k] = i
-                k+=1
+        # using bucket sort since we know the range is 0-2
+        colors = [0] * 3
+        for n in nums:
+            colors[n] += 1
+        j=0
+        for i in range(3):
+            count = colors[i]
+            while count != 0:
+                nums[j] = i
+                j += 1
+                count -= 1
+        
+        
+
         
