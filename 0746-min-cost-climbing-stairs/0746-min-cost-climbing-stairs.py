@@ -7,8 +7,6 @@ class Solution:
         # Base case: steps 0 cost is cost[0] and step 1 cost is cost[1]
         # Original problem: F(n)
         # Time: O(n)
-        n = len(cost)
-        cost.append(0)
         # def rec(n, memo):
         #     if n == 0:
         #         return cost[0]
@@ -26,8 +24,10 @@ class Solution:
         # rec(0) -> 10
 
         # convert to dp, use base cases to start dp array of size n
-        if len(cost) <= 1:
-            return cost[len(cost)]
+        if len(cost) <= 2:
+            return cost[len(cost)-1]
+        n = len(cost)
+        cost.append(0)
         dp = [0] * (n+1)
         dp[0] = cost[0]
         dp[1] = cost[1]
