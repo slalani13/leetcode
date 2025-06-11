@@ -9,19 +9,31 @@ class Solution:
         # Time: O(n)
         n = len(cost)
         cost.append(0)
-        def rec(n, memo):
-            if n == 0:
-                return cost[0]
-            if n == 1:
-                return cost[1]
-            if n in memo:
-                return memo[n]
-            memo[n] = cost[n] + min(rec(n-1, memo), rec(n-2, memo))
-            return memo[n]
-        return rec(n, defaultdict(int))
+        # def rec(n, memo):
+        #     if n == 0:
+        #         return cost[0]
+        #     if n == 1:
+        #         return cost[1]
+        #     if n in memo:
+        #         return memo[n]
+        #     memo[n] = cost[n] + min(rec(n-1, memo), rec(n-2, memo))
+        #     return memo[n]
+        # return rec(n, defaultdict(int))
         # [10, 15, 30, 0], n=3, memo = {1: 15, 2: 30, 0: 10, 3: 15}
         # rec(3) = cost[3] + min(30, 15) = 15
         # rec(2) = 20 + min(15, 10) -> 30
         # rec(1) -> 15
         # rec(0) -> 10
+
+        # convert to dp, use base cases to start dp array of size n
+        if len(cost) <= 1:
+            return cost[len(cost)]
+        dp = [0] * (n+1)
+        dp[0] = cost[0]
+        dp[1] = cost[1]
+
+        for i in range(2, n+1):
+            dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+        return dp[n]
+
 
