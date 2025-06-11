@@ -24,8 +24,6 @@ class Solution:
         # rec(0) -> 10
 
         # convert to dp, use base cases to start dp array of size n
-        if len(cost) <= 2:
-            return cost[len(cost)-1]
         n = len(cost)
         cost.append(0)
         dp = [0] * (n+1)
