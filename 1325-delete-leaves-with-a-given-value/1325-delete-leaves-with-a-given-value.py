@@ -6,13 +6,33 @@
 #         self.right = right
 class Solution:
     def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
-        def dfs(root): # [1, 2]
-            if not root:
-                return None
-            root.left = dfs(root.left)
-            root.right = dfs(root.right)
-            if not root.left and not root.right:
-                if root.val == target:
+        # use post order traversal and delete if leaf node
+        # otherwise add it to stack
+        # if already in stack, pop
+        stack = [root]
+        parents = {root: None} # root has no parent
+        visited = set()
+        while stack:
+            node = stack.pop()
+            if not node.left and not node.right and node.val == target:
+                p = parents[node]
+                if not p:
                     return None
-            return root
-        return dfs(root)
+                else:
+                    if p.left == node:
+                        p.left = None
+                    else:
+                        p.right = None
+            elif node not in visited:
+                visited.add(node)
+                stack.append(node)
+                if node.left:
+                    stack.append(node.left)
+                    parents[node.left] = node
+                if node.right:
+                    stack.append(node.right)
+                    parents[node.right] = node
+        return root
+                
+
+            
