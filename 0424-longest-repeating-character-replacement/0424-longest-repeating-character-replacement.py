@@ -1,18 +1,21 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        # return longest substring with at most K replacements
-        longest = 0
-        counter = defaultdict(int) # key= letter, value= freq
-        l = 0
-        maxfreq = 0
-
+        # check if window is valid - we have substring with one character only using k replacements
+        # if window is valid, we can increase the window
+        # s = "ABAB" k = 2
+        # counts = {A: 1} , r=, l=0
+        longest = 0 # 1
+        l= 0
+        counts = [0] * 26
         for r in range(len(s)):
-            counter[s[r]] += 1
-            maxfreq = max(maxfreq, counter[s[r]])
-            while r-l+1 - maxfreq > k:
-                counter[s[l]] -= 1
+            # adding right char
+            idx = ord(s[r]) - ord('A')
+            counts[idx] += 1
+            # if window is invalid, remove left char
+            if (r-l+1)-max(counts) > k:
+                counts[ord(s[l]) - ord('A')] -= 1
                 l += 1
-            longest = max(longest, r-l+1)
+            else:
+                longest = max(longest, r-l+1)
+
         return longest
-        # s="ABAB", map={A:2, B:1, }, maxF = 1, w=1, R=1, L=0
-            
